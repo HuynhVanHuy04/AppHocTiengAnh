@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#99FFFF">
+
+    <!-- ✔ Đây là phần tử con DUY NHẤT của ScrollView -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <ImageView
+            android:id="@+id/back_arrow"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="16dp"
+            android:src="@drawable/quaylai"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true" />
+        <!-- Tiêu đề -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hoàn tất bản dịch"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Ảnh + bong bóng thoại trên cùng 1 hàng -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="24dp"
+            android:gravity="center_vertical"
+            android:baselineAligned="false">
+
+            <!-- Hình nhân vật -->
+            <ImageView
+                android:id="@+id/img"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/edu"
+                android:layout_marginEnd="12dp" />
+
+            <!-- Bong bóng thoại -->
+            <TextView
+                android:id="@+id/bubbleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bubble"
+                android:text=""
+                android:textSize="18sp"
+                android:padding="12dp"
+                android:textColor="#000000" />
+        </LinearLayout>
+
+        <!-- Hộp dịch -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="#FFFFFF"
+            android:elevation="2dp"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:layout_marginBottom="32dp">
+
+            <TextView
+                android:id="@+id/textViewPrefix"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="18sp"
+                android:textColor="#333333" />
+
+            <EditText
+                android:id="@+id/editTextAnswer"
+                android:layout_width="200dp"
+                android:layout_height="48dp"
+                android:hint="______"
+                android:inputType="text"
+                android:textSize="18sp"
+                android:gravity="center"
+                android:background="@null"
+                android:maxLines="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="?"
+                android:textSize="18sp"
+                android:textColor="#333333" />
+        </LinearLayout>
+
+        <!-- Nút kiểm tra -->
+        <Button
+            android:id="@+id/buttonCheck"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="KIỂM TRA"
+            android:backgroundTint="#E5E5E5"
+            android:textColor="#888888"
+            android:enabled="true"
+            android:padding="16dp" />
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="#99FFCC"
+    android:padding="24dp">
+
+    <!-- Logo Duolingo -->
+    <ImageView
+        android:id="@+id/duoLogo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/logo"
+        android:layout_marginBottom="24dp"
+        android:layout_marginTop="100dp"
+        android:contentDescription="Duolingo Logo"/>
+
+
+    <!-- Tiêu đề -->
+    <TextView
+        android:id="@+id/appName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="duolingo"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:textColor="#32C449"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Mô tả -->
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cách học ngoại ngữ vui nhộn, \nhiệu quả và miễn phí!"
+        android:textSize="16sp"
+        android:textColor="#888888"
+        android:gravity="center"
+        android:layout_marginBottom="40dp"/>
+
+    <!-- Nút Bắt đầu -->
+    <Button
+        android:id="@+id/startButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="BẮT ĐẦU NGAY"
+        android:textAllCaps="true"
+        android:backgroundTint="#32C449"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="50dp"/>
+
+    <!-- Đăng kí -->
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ĐĂNG KÍ"
+        android:textAllCaps="true"
+        android:backgroundTint="#FFFFFF"
+        android:textColor="#32C449"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/white_border_button"/>
+
+</LinearLayout>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#99FFCC">
+
+    <!-- Mũi tên quay lại -->
+    <ImageView
+        android:id="@+id/back_arrow"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_margin="16dp"
+        android:src="@drawable/quaylai"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
+    <!-- Bong bóng lời thoại -->
+    <TextView
+        android:id="@+id/bubble_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:text="Chào bạn!"
+        android:background="@drawable/speech_bubble"
+        android:padding="16dp"
+        android:textSize="18sp"
+        android:textColor="#000" />
+
+    <!-- Hình Duo -->
+    <ImageView
+        android:id="@+id/duo_image"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@id/bubble_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/anh1" />
+
+    <!-- Nút tiếp tục -->
+    <Button
+        android:id="@+id/btn_continue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TIẾP TỤC"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
+        android:backgroundTint="#32CD32"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold" />
+</RelativeLayout>

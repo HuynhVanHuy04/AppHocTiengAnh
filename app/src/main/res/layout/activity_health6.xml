@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:gravity="left"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#99FFFF">
+
+    <!-- Mũi tên quay lại -->
+    <ImageView
+        android:id="@+id/back_arrow"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginLeft="16dp"
+        android:src="@drawable/quaylai"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
+
+
+    <!-- Tiêu đề -->
+    <TextView
+        android:id="@+id/textTitle"
+        android:text="Đọc câu này"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <!-- Nhân vật và lời thoại -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="32dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <!-- Hình nhân vật -->
+        <ImageView
+            android:id="@+id/imageCharacter"
+            android:src="@drawable/edu"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
+
+        <!-- Bóng thoại -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:background="@drawable/speech_bubble"
+            android:padding="12dp"
+            android:layout_marginStart="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:src="@drawable/volume"
+                android:layout_width="24dp"
+                android:layout_height="24dp"/>
+
+            <TextView
+                android:id="@+id/textSentence"
+                android:text="Toothache."
+                android:textSize="18sp"
+                android:layout_marginStart="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Nút "Nhấn để nói" -->
+    <Button
+        android:id="@+id/btnSpeak"
+        android:text="NHẤN ĐỂ NÓI"
+        android:textAllCaps="true"
+        android:textSize="16sp"
+        android:drawableStart="@drawable/mic"
+        android:drawablePadding="8dp"
+        android:textColor="@color/green"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        />
+
+
+    <!-- Thông báo trạng thái -->
+    <TextView
+        android:id="@+id/textStatus"
+        android:text="TẠM THỜI KHÔNG NÓI ĐƯỢC"
+        android:textSize="14sp"
+        android:textColor="@android:color/darker_gray"
+        android:gravity="center"
+        android:layout_marginTop="300dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- Nút kiểm tra -->
+    <Button
+        android:id="@+id/btnCheck"
+        android:text="KIỂM TRA"
+        android:enabled="false"
+        android:backgroundTint="@android:color/darker_gray"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp" />
+</LinearLayout>

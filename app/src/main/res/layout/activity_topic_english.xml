@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#99FFCC">
+
+    <!-- Thanh tiêu đề -->
+    <!-- Mũi tên quay lại -->
+    <ImageView
+        android:id="@+id/back_arrow"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_margin="16dp"
+        android:src="@drawable/quaylai"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Please select a topic"
+        android:gravity="center"
+        android:background="#4B2AAF"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:padding="12dp" />
+
+    <!-- Danh mục EDUCATION -->
+    <LinearLayout
+        android:id="@+id/Education"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@drawable/school" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EDUCATION"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginStart="24dp" />
+    </LinearLayout>
+
+    <!-- Danh mục FAMILY -->
+    <LinearLayout
+        android:id="@+id/Family"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@drawable/family" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FAMILY"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginStart="24dp" />
+    </LinearLayout>
+
+    <!-- Danh mục HEALTH -->
+    <LinearLayout
+        android:id="@+id/Health"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@drawable/health" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="HEALTH"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginStart="24dp" />
+    </LinearLayout>
+
+    <!-- Nút Back -->
+    <Button
+        android:id="@+id/btn_continue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TIẾP TỤC"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="100dp"
+        android:backgroundTint="#C0C0C0"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold" />
+</LinearLayout>

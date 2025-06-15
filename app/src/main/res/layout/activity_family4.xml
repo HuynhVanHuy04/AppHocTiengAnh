@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#FF99FF">
+
+    <!-- Nút quay lại -->
+    <ImageView
+        android:id="@+id/back_arrow"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="start"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/quaylai" />
+
+    <!-- Tiêu đề "Nối từ" căn giữa -->
+    <TextView
+        android:id="@+id/instructionText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nối từ"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="24dp"
+        android:background="#99FFCC"
+        android:padding="12dp"
+        android:textColor="@color/black" />
+
+    <!-- Hai cột từ -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/englishColumn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center" />
+
+        <LinearLayout
+            android:id="@+id/vietnameseColumn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <!-- Nút kiểm tra -->
+    <Button
+        android:id="@+id/btn_continue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="tiếp tục"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#BDBDBD" />
+</LinearLayout>

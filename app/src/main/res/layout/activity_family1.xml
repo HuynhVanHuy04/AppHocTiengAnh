@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="#FF99FF">
+
+        <!-- Mũi tên quay lại -->
+        <ImageView
+            android:id="@+id/back_arrow"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="16dp"
+            android:src="@drawable/quaylai"
+            android:layout_gravity="start" />
+
+        <!-- Tiêu đề -->
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TỪ VỰNG MỚI"
+            android:textColor="#9C27B0"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- Hướng dẫn -->
+        <TextView
+            android:id="@+id/instructionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chọn hình ảnh đúng"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp" />
+
+        <!-- Phần từ vựng + loa phát âm -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <ImageView
+                android:id="@+id/speakerButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/volume"
+                android:contentDescription="Phát âm" />
+
+            <TextView
+                android:id="@+id/wordText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="20sp"
+                android:textColor="#3F51B5"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="8dp" />
+        </LinearLayout>
+
+        <!-- GridLayout 2x3 -->
+        <GridLayout
+            android:id="@+id/gridLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:columnCount="2"
+            android:rowCount="3"
+            android:alignmentMode="alignMargins"
+            android:rowOrderPreserved="false"
+            android:useDefaultMargins="true">
+
+            <!-- Ông bà -->
+            <LinearLayout
+                android:id="@+id/boxGr"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_columnWeight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/imgGr"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/grandparents" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ông bà" />
+            </LinearLayout>
+
+            <!-- Ông nội/ngoại -->
+            <LinearLayout
+                android:id="@+id/boxGrft"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_columnWeight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/imgGrft"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/grandpa" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ông ngoại/Ông nội" />
+            </LinearLayout>
+
+            <!-- Bà nội/ngoại -->
+            <LinearLayout
+                android:id="@+id/boxGrmt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_columnWeight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/imgGrmt"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/grandmother" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bà ngoại/Bà nội" />
+            </LinearLayout>
+
+            <!-- Cô/Dì -->
+            <LinearLayout
+                android:id="@+id/boxAunt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_columnWeight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/imgAunt"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/aut" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cô/Dì" />
+            </LinearLayout>
+
+            <!-- Chú/Cậu -->
+            <LinearLayout
+                android:id="@+id/boxUncle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_columnWeight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/imgUncle"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/unc" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Chú/Cậu" />
+            </LinearLayout>
+
+            <!-- Anh chị em họ -->
+            <LinearLayout
+                android:id="@+id/boxCousin"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_columnWeight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/imgCousin"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/cousin" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Anh chị em họ" />
+            </LinearLayout>
+        </GridLayout>
+
+        <!-- Nút kiểm tra đáp án -->
+        <Button
+            android:id="@+id/checkButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="0dp"
+            android:backgroundTint="#BDBDBD"
+            android:text="KIỂM TRA" />
+    </LinearLayout>
+</ScrollView>

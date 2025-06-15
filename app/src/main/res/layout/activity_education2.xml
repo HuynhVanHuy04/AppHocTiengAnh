@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFDF9">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+        <ImageView
+            android:id="@+id/back_arrow"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="16dp"
+            android:src="@drawable/quaylai"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true" />
+        <!-- Tiêu đề -->
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TỪ VỰNG MỚI"
+            android:textColor="#9C27B0"
+            android:textStyle="bold"
+            android:textSize="16sp" />
+
+        <!-- Câu hỏi -->
+        <TextView
+            android:id="@+id/question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dịch câu này"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"
+            android:textColor="#000000" />
+
+        <!-- Nhân vật + câu nói -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/character_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/edu" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="12dp"
+                android:background="@drawable/speech_bubble"
+                android:padding="12dp"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:id="@+id/sound_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/volume" />
+
+                <TextView
+                    android:id="@+id/english_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Welcome."
+                    android:textColor="#9C27B0"
+                    android:textSize="18sp"
+                    android:layout_marginStart="8dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Các từ gợi ý -->
+        <GridLayout
+            android:id="@+id/word_options"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:alignmentMode="alignMargins"
+            android:columnCount="3"
+            android:rowCount="3"
+            android:useDefaultMargins="true">
+
+            <!-- Sẽ được tạo từ code Java -->
+        </GridLayout>
+
+        <!-- Nút kiểm tra -->
+        <Button
+            android:id="@+id/check_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="300dp"
+            android:text="KIỂM TRA"
+            android:enabled="false"
+            android:backgroundTint="#BDBDBD"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,53 @@
+
+// HCD-5309 - We use BotD library to make sure user is not a bot before playing youtube videos
+const botdPromise = import('https://openfpcdn.io/botd/v1').then((Botd) => Botd.load());
+
+window.addEventListener('DOMContentLoaded', function() {
+    handleBotDetection();
+});
+
+function handleBotDetection() {
+    botdPromise
+        .then((botd) => botd.detect())
+        .then((result) => {
+            if (!result.bot) {
+                loadYoutubeApi();
+                setupYouTubePlayers();
+            }
+        })
+        .catch((error) => {
+            console.error("handleBotDetection() " + error);
+            document.querySelectorAll('.error-youtube').forEach(function(element) {
+                element.style.display = 'flex';
+            });
+
+            document.querySelectorAll('.youtube-video').forEach(function(element) {
+                element.style.display = 'none';
+            });
+        });
+}
+
+function loadYoutubeApi() {
+    var ytScrpt= document.createElement("script");
+    ytScrpt.src = "https://www.youtube.com/iframe_api";
+    ytScrpt.async = true;
+    document.body.appendChild(ytScrpt);
+};
+
+function setupYouTubePlayers() {
+    configuration.click(configuration.find(".youtube-video"), function() {
+        new YT.Player("player_" + this.dataset.embed, {
+            height: '',
+            width: '',
+            videoId: this.dataset.embed,
+            events: {
+                'onReady': onPlayerReady
+            }
+        });
+        function onPlayerReady(event) {
+            event.target.playVideo();
+            console.log("PlayerReady");
+        }
+        this.innerHTML = "";
+    });
+}
