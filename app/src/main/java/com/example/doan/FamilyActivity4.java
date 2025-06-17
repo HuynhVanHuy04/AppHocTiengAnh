@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.*;
 
 public class FamilyActivity4 extends AppCompatActivity {
+
     LinearLayout englishColumn, vietnameseColumn;
     DatabaseFamilylist4 dbHelper;
     List<Word> wordList;
@@ -18,10 +19,23 @@ public class FamilyActivity4 extends AppCompatActivity {
     int correctCount = 0;
     int totalPairs;
 
+    // Thông tin thống kê
+    int xp = 0;
+    int correct = 0;
+    int total = 0;
+    long startTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_family4);
+
+        // Nhận dữ liệu từ FamilyActivity3
+        Intent intent = getIntent();
+        xp = intent.getIntExtra("xp", 0);
+        correct = intent.getIntExtra("correct", 0);
+        total = intent.getIntExtra("total", 0);
+        startTime = intent.getLongExtra("startTime", System.currentTimeMillis());
 
         englishColumn = findViewById(R.id.englishColumn);
         vietnameseColumn = findViewById(R.id.vietnameseColumn);
@@ -37,23 +51,33 @@ public class FamilyActivity4 extends AppCompatActivity {
 
         setupButtons();
 
-        // Mặc định disable nút
-        continueButton.setEnabled(false);
+        continueButton.setEnabled(false);  // Disable ban đầu
 
-        // Xử lý khi ấn "Tiếp tục"
         continueButton.setOnClickListener(v -> {
-            // Chuyển sang Activity khác, ví dụ: ResultActivity
-            Intent intent = new Intent(FamilyActivity4.this, FamilyActivity5.class);
-            startActivity(intent);
-            finish(); // kết thúc màn hiện tại nếu không muốn quay lại
+            // Cập nhật thống kê
+            xp += 12;
+            correct += totalPairs;
+            total += totalPairs;
+
+            Intent nextIntent = new Intent(FamilyActivity4.this, FamilyActivity5.class);
+            nextIntent.putExtra("xp", xp);
+            nextIntent.putExtra("correct", correct);
+            nextIntent.putExtra("total", total);
+            nextIntent.putExtra("startTime", startTime);
+            startActivity(nextIntent);
+            finish();
         });
 
         ImageView backArrow = findViewById(R.id.back_arrow);
         backArrow.setOnClickListener(v -> {
-            startActivity(new Intent(FamilyActivity4.this, FamilyActivity3.class));
+            Intent backIntent = new Intent(FamilyActivity4.this, FamilyActivity3.class);
+            backIntent.putExtra("xp", xp);
+            backIntent.putExtra("correct", correct);
+            backIntent.putExtra("total", total);
+            backIntent.putExtra("startTime", startTime);
+            startActivity(backIntent);
             finish();
         });
-
     }
 
     private void setupButtons() {
@@ -97,8 +121,6 @@ public class FamilyActivity4 extends AppCompatActivity {
                     }
 
                     correctCount++;
-
-                    // Khi đủ số từ đúng
                     if (correctCount == totalPairs) {
                         continueButton.setBackgroundTintList(getColorStateList(android.R.color.holo_green_dark));
                         continueButton.setEnabled(true);

@@ -26,18 +26,24 @@ public class EducationActivity2 extends Activity {
     };
 
     private final List<Button> wordButtons = new ArrayList<>();
+    private int xp, correct, total;
+    private long startTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_education2);
+        xp = getIntent().getIntExtra("xp", 0);
+        correct = getIntent().getIntExtra("correct", 0);
+        total = getIntent().getIntExtra("total", 0);
+        startTime = getIntent().getLongExtra("startTime", System.currentTimeMillis());
 
         wordOptionsLayout = findViewById(R.id.word_options);
         checkButton = findViewById(R.id.check_button);
         ImageView soundIcon = findViewById(R.id.sound_icon);
         englishText = findViewById(R.id.english_text);
 
-        mediaPlayer = MediaPlayer.create(this, R.raw.student);
+        mediaPlayer = MediaPlayer.create(this, R.raw.welcome);
 
         // Màu và trạng thái ban đầu của nút kiểm tra
         checkButton.setEnabled(false);
@@ -69,27 +75,34 @@ public class EducationActivity2 extends Activity {
                 if (answer.contains(correctAnswer)) {
                     Toast.makeText(this, "Chính xác! 🎉", Toast.LENGTH_SHORT).show();
                     answeredCorrectly = true;
-
                     checkButton.setText("TIẾP TỤC");
                     checkButton.setBackgroundColor(Color.parseColor("#4CAF50")); // xanh lá
                 } else {
                     Toast.makeText(this, "Sai rồi 😢", Toast.LENGTH_SHORT).show();
-
-                    // Reset các từ và trạng thái
                     userAnswer.setLength(0);
-                    for (Button b : wordButtons) {
-                        b.setEnabled(true);
-                    }
-
+                    for (Button b : wordButtons) b.setEnabled(true);
                     checkButton.setEnabled(false);
-                    checkButton.setBackgroundColor(Color.parseColor("#BDBDBD")); // trở lại màu xám
+                    checkButton.setBackgroundColor(Color.parseColor("#BDBDBD"));
                 }
             } else {
+                // ✅ Cập nhật kết quả
+                if (userAnswer.toString().trim().contains(correctAnswer)) {
+                    xp += 11;
+                    correct++;
+                }
+                total++;
+
+                // ✅ Truyền tiếp dữ liệu
                 Intent intent = new Intent(EducationActivity2.this, EducationActivity3.class);
+                intent.putExtra("xp", xp);
+                intent.putExtra("correct", correct);
+                intent.putExtra("total", total);
+                intent.putExtra("startTime", startTime);
                 startActivity(intent);
                 finish();
             }
         });
+
 
         ImageView imageView = findViewById(R.id.character_image);
         Glide.with(this)

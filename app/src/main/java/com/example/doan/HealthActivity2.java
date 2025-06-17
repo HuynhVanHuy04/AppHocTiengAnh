@@ -27,23 +27,40 @@ public class HealthActivity2 extends Activity {
 
     private final List<Button> wordButtons = new ArrayList<>();
 
+    // Thống kê
+    private int xp = 0;
+    private int correct = 0;
+    private int total = 0;
+    private long startTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health2);
 
+        // Nhận dữ liệu thống kê từ HealthActivity1
+        Intent intent = getIntent();
+        xp = intent.getIntExtra("xp", 0);
+        correct = intent.getIntExtra("correct", 0);
+        total = intent.getIntExtra("total", 0);
+        startTime = intent.getLongExtra("startTime", System.currentTimeMillis());
+
         wordOptionsLayout = findViewById(R.id.word_options);
         checkButton = findViewById(R.id.check_button);
         ImageView soundIcon = findViewById(R.id.sound_icon);
         englishText = findViewById(R.id.english_text);
+        ImageView imageView = findViewById(R.id.character_image);
+        ImageView backArrow = findViewById(R.id.back_arrow);
 
-        mediaPlayer = MediaPlayer.create(this, R.raw.student);
+        mediaPlayer = MediaPlayer.create(this, R.raw.fatigue);
 
-        // Màu và trạng thái ban đầu của nút kiểm tra
         checkButton.setEnabled(false);
         checkButton.setBackgroundColor(Color.parseColor("#BDBDBD")); // xám
 
         soundIcon.setOnClickListener(v -> mediaPlayer.start());
+
+        // Load ảnh gif
+        Glide.with(this).asGif().load(R.drawable.edu).into(imageView);
 
         // Tạo các từ gợi ý
         for (String word : wordSuggestions) {
@@ -70,41 +87,42 @@ public class HealthActivity2 extends Activity {
                     Toast.makeText(this, "Chính xác! 🎉", Toast.LENGTH_SHORT).show();
                     answeredCorrectly = true;
 
+                    // Cập nhật thống kê
+                    xp += 15;
+                    correct += 1;
+                    total += 1;
+
                     checkButton.setText("TIẾP TỤC");
-                    checkButton.setBackgroundColor(Color.parseColor("#4CAF50")); // xanh lá
+                    checkButton.setBackgroundColor(Color.parseColor("#4CAF50"));
                 } else {
                     Toast.makeText(this, "Sai rồi 😢", Toast.LENGTH_SHORT).show();
-
-                    // Reset các từ và trạng thái
                     userAnswer.setLength(0);
-                    for (Button b : wordButtons) {
-                        b.setEnabled(true);
-                    }
-
+                    for (Button b : wordButtons) b.setEnabled(true);
                     checkButton.setEnabled(false);
-                    checkButton.setBackgroundColor(Color.parseColor("#BDBDBD")); // trở lại màu xám
+                    checkButton.setBackgroundColor(Color.parseColor("#BDBDBD"));
                 }
             } else {
-                Intent intent = new Intent(HealthActivity2.this, HealthActivity3.class);
-                startActivity(intent);
+                // Chuyển tiếp và gửi dữ liệu
+                Intent nextIntent = new Intent(HealthActivity2.this, HealthActivity3.class);
+                nextIntent.putExtra("xp", xp);
+                nextIntent.putExtra("correct", correct);
+                nextIntent.putExtra("total", total);
+                nextIntent.putExtra("startTime", startTime);
+                startActivity(nextIntent);
                 finish();
             }
         });
 
-        ImageView imageView = findViewById(R.id.character_image);
-        Glide.with(this)
-                .asGif()
-                .load(R.drawable.edu) // tên file gif không cần đuôi .gif
-                .into(imageView);
-
         // Nút quay lại
-        ImageView backArrow = findViewById(R.id.back_arrow);
         backArrow.setOnClickListener(v -> {
-            startActivity(new Intent(HealthActivity2.this, HealthActivity1.class));
+            Intent backIntent = new Intent(HealthActivity2.this, HealthActivity1.class);
+            backIntent.putExtra("xp", xp);
+            backIntent.putExtra("correct", correct);
+            backIntent.putExtra("total", total);
+            backIntent.putExtra("startTime", startTime);
+            startActivity(backIntent);
             finish();
         });
-
-
     }
 
     @Override

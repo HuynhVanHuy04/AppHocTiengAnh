@@ -54,6 +54,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
+                android:id="@+id/sound_icon"
                 android:src="@drawable/volume"
                 android:layout_width="24dp"
                 android:layout_height="24dp"/>

@@ -98,7 +98,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Chăm sóc" />
+                    android:text="Con cái" />
             </LinearLayout>
 
             <!-- Hình 2: giáo viên -->
@@ -119,7 +119,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nuôi nấng" />
+                    android:text="Cháu gái (của cô/ dì/ chú …)" />
             </LinearLayout>
 
             <!-- Hình 3: Thước -->

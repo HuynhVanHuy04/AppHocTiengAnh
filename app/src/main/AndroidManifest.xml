@@ -34,17 +34,23 @@
         <activity android:name=".EducationActivity4" />
         <activity android:name=".EducationActivity5" />
         <activity android:name=".EducationActivity6" />
+        <activity android:name=".EducationActivity7" />
+        <activity android:name=".EducationActivityEnd" />
+
         <activity android:name=".FamilyActivity1" />
         <activity android:name=".FamilyActivity2" />
         <activity android:name=".FamilyActivity3" />
         <activity android:name=".FamilyActivity4" />
         <activity android:name=".FamilyActivity5" />
         <activity android:name=".FamilyActivity6" />
+        <activity android:name=".FamilyActivityEnd" />
+
         <activity android:name=".HealthActivity1" />
         <activity android:name=".HealthActivity2" />
         <activity android:name=".HealthActivity3" />
         <activity android:name=".HealthActivity4" />
         <activity android:name=".HealthActivity5" />
+        <activity android:name=".HealthActivity6" />
 
 
 

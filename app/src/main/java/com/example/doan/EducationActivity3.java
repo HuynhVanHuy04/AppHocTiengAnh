@@ -20,10 +20,22 @@ public class EducationActivity3 extends Activity {
     private LinearLayout correctBox = null;
     private MediaPlayer mediaPlayer;
 
+    // Dữ liệu từ màn trước
+    private int xp = 0;
+    private int correct = 0;
+    private int total = 0;
+    private long startTime = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_education3); // Sửa nếu tên layout khác
+        setContentView(R.layout.activity_education3);
+
+        // Nhận dữ liệu từ màn EducationActivity2
+        xp = getIntent().getIntExtra("xp", 0);
+        correct = getIntent().getIntExtra("correct", 0);
+        total = getIntent().getIntExtra("total", 0);
+        startTime = getIntent().getLongExtra("startTime", System.currentTimeMillis());
 
         // Ánh xạ các LinearLayout
         boxDesk = findViewById(R.id.boxDesk);
@@ -84,13 +96,25 @@ public class EducationActivity3 extends Activity {
                 Toast.makeText(this, "Chính xác! 🎉", Toast.LENGTH_SHORT).show();
                 checkButton.setText("Tiếp tục");
                 disableBoxes();
+
+                // ✅ Cộng điểm và cập nhật số câu
+                xp += 11;
+                correct++;
+                total++;
+
                 checkButton.setOnClickListener(view -> {
                     Intent intent = new Intent(EducationActivity3.this, EducationActivity4.class);
+                    intent.putExtra("xp", xp);
+                    intent.putExtra("correct", correct);
+                    intent.putExtra("total", total);
+                    intent.putExtra("startTime", startTime);
                     startActivity(intent);
                     finish();
                 });
+
             } else {
                 Toast.makeText(this, "Sai rồi 😢", Toast.LENGTH_SHORT).show();
+                total++; // ✅ Vẫn tăng tổng số câu
             }
         });
 

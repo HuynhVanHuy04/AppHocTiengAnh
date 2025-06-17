@@ -18,11 +18,13 @@ public class EducationActivity1 extends Activity {
     private String correctEnglish;
     private LinearLayout selectedBox = null;
     private MediaPlayer mediaPlayer;
+    private long startTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_education1);
+        startTime = System.currentTimeMillis();
 
         // Ánh xạ view
         boxStudent = findViewById(R.id.boxStudent);
@@ -82,6 +84,13 @@ public class EducationActivity1 extends Activity {
 
                 checkButton.setOnClickListener(view -> {
                     Intent intent = new Intent(EducationActivity1.this, EducationActivity2.class);
+                    intent.putExtra("xp", 11);             // đúng 1 câu = 11 XP
+                    intent.putExtra("correct", 1);         // đúng 1 câu
+                    intent.putExtra("total", 1);           // đã làm 1 câu
+                    intent.putExtra("startTime", startTime); // truyền thời gian bắt đầu từ màn đầu
+                    startActivity(intent);
+                    finish();
+
                     startActivity(intent);
                     finish();
                 });

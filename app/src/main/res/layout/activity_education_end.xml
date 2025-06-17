@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Ảnh hoạt hình -->
+        <ImageView
+            android:id="@+id/img_celebration"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/logo"
+            android:contentDescription="Celebration" />
+
+        <!-- Tiêu đề -->
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Xí xóa mọi lỗi"
+            android:textColor="#F9B300"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <!-- Mô tả -->
+        <TextView
+            android:id="@+id/tv_subtitle"
+            android:layout_marginTop="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bạn đã sửa 4 lỗi sai. Vững bước tiến lên!"
+            android:textColor="#999"
+            android:textSize="16sp" />
+
+        <!-- Thống kê -->
+        <LinearLayout
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Tổng điểm KN -->
+            <LinearLayout
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="12dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_yellow">
+
+                <TextView
+                    android:text="⚡"
+                    android:textSize="24sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_xp"
+                    android:text="0"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="TỔNG ĐIỂM KN"
+                    android:textSize="12sp"
+                    android:textColor="#444"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <!-- Tốc độ -->
+            <LinearLayout
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="12dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_blue">
+
+                <TextView
+                    android:text="⏱️"
+                    android:textSize="24sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:text="0:00"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="TỐC ĐỘ"
+                    android:textSize="12sp"
+                    android:textColor="#444"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <!-- Tốt -->
+            <LinearLayout
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="12dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_green">
+
+                <TextView
+                    android:text="🎯"
+                    android:textSize="24sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_accuracy"
+                    android:text="0%"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="TỐT"
+                    android:textSize="12sp"
+                    android:textColor="#444"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Nút nhận KN -->
+<!--        <Button-->
+<!--            android:id="@+id/btn_get_xp"-->
+<!--            android:layout_marginTop="32dp"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="NHẬN KN"-->
+<!--            android:textAllCaps="true"-->
+<!--            android:textColor="#FFF"-->
+<!--            android:backgroundTint="#1CB0F6"-->
+<!--            android:textSize="16sp"-->
+<!--            android:padding="16dp"/>-->
+    </LinearLayout>
+</ScrollView>

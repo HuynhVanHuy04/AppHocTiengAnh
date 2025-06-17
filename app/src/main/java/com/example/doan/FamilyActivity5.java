@@ -6,11 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,35 +21,45 @@ public class FamilyActivity5 extends AppCompatActivity {
     Button checkButton;
 
     SQLiteDatabase database;
-
     String correctAnswer = "";
     boolean isCheckMode = true;
+
+    // Thông tin thống kê
+    int xp = 0;
+    int correct = 0;
+    int total = 0;
+    long startTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_family5);
 
-        // Ánh xạ view
+        // Nhận dữ liệu từ FamilyActivity4
+        Intent intent = getIntent();
+        xp = intent.getIntExtra("xp", 0);
+        correct = intent.getIntExtra("correct", 0);
+        total = intent.getIntExtra("total", 0);
+        startTime = intent.getLongExtra("startTime", System.currentTimeMillis());
+
         bubbleTextView = findViewById(R.id.bubbleTextView);
         answerInput = findViewById(R.id.editTextAnswer);
         checkButton = findViewById(R.id.buttonCheck);
 
-        // Nút quay lại
         ImageView backArrow = findViewById(R.id.back_arrow);
         backArrow.setOnClickListener(v -> {
-            startActivity(new Intent(FamilyActivity5.this, FamilyActivity4.class));
+            Intent backIntent = new Intent(FamilyActivity5.this, FamilyActivity2.class);
+            backIntent.putExtra("xp", xp);
+            backIntent.putExtra("correct", correct);
+            backIntent.putExtra("total", total);
+            backIntent.putExtra("startTime", startTime);
+            startActivity(backIntent);
             finish();
         });
 
-        // Load ảnh GIF động
         ImageView imageView = findViewById(R.id.img);
-        Glide.with(this)
-                .asGif()
-                .load(R.drawable.edu)
-                .into(imageView);
+        Glide.with(this).asGif().load(R.drawable.edu).into(imageView);
 
-        // Nút kiểm tra / tiếp tục
         checkButton.setOnClickListener(v -> {
             String userInput = answerInput.getText().toString().trim().toLowerCase();
 
@@ -64,18 +70,27 @@ public class FamilyActivity5 extends AppCompatActivity {
                     checkButton.setBackgroundColor(Color.parseColor("#4CAF50"));
                     checkButton.setTextColor(Color.WHITE);
                     isCheckMode = false;
+
+                    // Cập nhật thống kê
+                    xp += 12;
+                    correct += 1;
+                    total += 1;
+
                 } else {
                     Toast.makeText(this, "❌ Sai rồi! Thử lại...", Toast.LENGTH_SHORT).show();
                 }
             } else {
-                // ➤ Chuyển sang Activity khác sau khi đúng và bấm "TIẾP TỤC"
-                Intent intent = new Intent(FamilyActivity5.this, FamilyActivity1.class);
-                startActivity(intent);
+                // Chuyển sang FamilyActivity6 và truyền dữ liệu
+                Intent nextIntent = new Intent(FamilyActivity5.this, FamilyActivity6.class);
+                nextIntent.putExtra("xp", xp);
+                nextIntent.putExtra("correct", correct);
+                nextIntent.putExtra("total", total);
+                nextIntent.putExtra("startTime", startTime);
+                startActivity(nextIntent);
                 finish();
             }
         });
 
-        // Tải dữ liệu đầu tiên
         loadRandomTranslation();
     }
 
@@ -97,10 +112,10 @@ public class FamilyActivity5 extends AppCompatActivity {
             Cursor cursor = database.rawQuery("SELECT USA, VN FROM List_Family ORDER BY RANDOM() LIMIT 1", null);
 
             if (cursor.moveToFirst()) {
-                String english = cursor.getString(0);  // VD: "staff room"
-                String vietnamese = cursor.getString(1); // VD: "Phòng nghỉ giáo viên"
+                String english = cursor.getString(0);
+                String vietnamese = cursor.getString(1);
 
-                correctAnswer = english.trim().toLowerCase(); // So sánh không phân biệt hoa thường
+                correctAnswer = english.trim().toLowerCase();
                 bubbleTextView.setText(vietnamese.trim() + "?");
                 answerInput.setHint("Nhập bản dịch tiếng Anh");
             }

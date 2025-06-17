@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.*;
 
 public class HealthActivity4 extends AppCompatActivity {
+
     LinearLayout englishColumn, vietnameseColumn;
     DatabaseHealth4 dbHelper;
     List<Word> wordList;
@@ -18,10 +19,22 @@ public class HealthActivity4 extends AppCompatActivity {
     int correctCount = 0;
     int totalPairs;
 
+    // Biến thống kê
+    int xp, correct, total;
+    long startTime;
+    boolean finishedCorrectly = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health4);
+
+        // Nhận dữ liệu từ HealthActivity3
+        Intent intent = getIntent();
+        xp = intent.getIntExtra("xp", 0);
+        correct = intent.getIntExtra("correct", 0);
+        total = intent.getIntExtra("total", 0);
+        startTime = intent.getLongExtra("startTime", System.currentTimeMillis());
 
         englishColumn = findViewById(R.id.englishColumn);
         vietnameseColumn = findViewById(R.id.vietnameseColumn);
@@ -37,23 +50,36 @@ public class HealthActivity4 extends AppCompatActivity {
 
         setupButtons();
 
-        // Mặc định disable nút
         continueButton.setEnabled(false);
 
-        // Xử lý khi ấn "Tiếp tục"
         continueButton.setOnClickListener(v -> {
-            // Chuyển sang Activity khác
-            Intent intent = new Intent(HealthActivity4.this, HealthActivity5.class);
-            startActivity(intent);
-            finish(); // kết thúc màn hiện tại nếu không muốn quay lại
+            Intent nextIntent = new Intent(HealthActivity4.this, HealthActivity5.class);
+
+            // Nếu làm đúng toàn bộ thì mới tăng xp và correct
+            if (finishedCorrectly) {
+                xp += 15;
+                correct++;
+                total++;
+            }
+
+            nextIntent.putExtra("xp", xp);
+            nextIntent.putExtra("correct", correct);
+            nextIntent.putExtra("total", total);
+            nextIntent.putExtra("startTime", startTime);
+            startActivity(nextIntent);
+            finish();
         });
 
         ImageView backArrow = findViewById(R.id.back_arrow);
         backArrow.setOnClickListener(v -> {
-            startActivity(new Intent(HealthActivity4.this, HealthActivity3.class));
+            Intent backIntent = new Intent(HealthActivity4.this, HealthActivity3.class);
+            backIntent.putExtra("xp", xp);
+            backIntent.putExtra("correct", correct);
+            backIntent.putExtra("total", total);
+            backIntent.putExtra("startTime", startTime);
+            startActivity(backIntent);
             finish();
         });
-
     }
 
     private void setupButtons() {
@@ -98,8 +124,8 @@ public class HealthActivity4 extends AppCompatActivity {
 
                     correctCount++;
 
-                    // Khi đủ số từ đúng
                     if (correctCount == totalPairs) {
+                        finishedCorrectly = true;
                         continueButton.setBackgroundTintList(getColorStateList(android.R.color.holo_green_dark));
                         continueButton.setEnabled(true);
                     }
@@ -131,7 +157,7 @@ public class HealthActivity4 extends AppCompatActivity {
     private GradientDrawable createNormalBackground() {
         GradientDrawable drawable = new GradientDrawable();
         drawable.setCornerRadius(16);
-        drawable.setStroke(3, 0xFFCCCCCC); // gray border
+        drawable.setStroke(3, 0xFFCCCCCC);
         drawable.setColor(0xFFFFFFFF);
         return drawable;
     }
@@ -139,7 +165,7 @@ public class HealthActivity4 extends AppCompatActivity {
     private GradientDrawable createSelectedBackground() {
         GradientDrawable drawable = new GradientDrawable();
         drawable.setCornerRadius(16);
-        drawable.setStroke(5, 0xFF4CAF50); // green border
+        drawable.setStroke(5, 0xFF4CAF50);
         drawable.setColor(0xFFFFFFFF);
         return drawable;
     }

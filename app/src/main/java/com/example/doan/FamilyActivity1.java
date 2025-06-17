@@ -18,11 +18,16 @@ public class FamilyActivity1 extends Activity {
     private String correctEnglish;
     private LinearLayout selectedBox = null;
     private MediaPlayer mediaPlayer;
+    private long startTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_family1);
+
+        // Nhận thời gian bắt đầu từ Intent
+        Intent intent = getIntent();
+        startTime = intent.getLongExtra("startTime", System.currentTimeMillis());
 
         // Ánh xạ view
         boxGr = findViewById(R.id.boxGr);
@@ -53,7 +58,7 @@ public class FamilyActivity1 extends Activity {
 
         // Lấy từ vựng đúng từ database
         DatabaseFamily1 dbHelper = new DatabaseFamily1(this);
-        String[] randomWord = dbHelper.getRandomWord(); // ví dụ: ["grandfather", "ông"]
+        String[] randomWord = dbHelper.getRandomWord(); // ["grandfather", "ông"]
         correctEnglish = randomWord[0].trim().toLowerCase();
         wordText.setText(correctEnglish);
 
@@ -80,9 +85,14 @@ public class FamilyActivity1 extends Activity {
                 checkButton.setText("Tiếp tục");
                 disableBoxes();
 
+                // Gán lại sự kiện để chuyển màn và gửi dữ liệu
                 checkButton.setOnClickListener(view -> {
-                    Intent intent = new Intent(FamilyActivity1.this, FamilyActivity4.class); // chuyển sang màn khác
-                    startActivity(intent);
+                    Intent nextIntent = new Intent(FamilyActivity1.this, FamilyActivity4.class);
+                    nextIntent.putExtra("xp", 11);                 // đúng 1 câu = 11 XP
+                    nextIntent.putExtra("correct", 1);             // đúng 1 câu
+                    nextIntent.putExtra("total", 1);               // tổng số câu đã làm
+                    nextIntent.putExtra("startTime", startTime);   // truyền thời gian bắt đầu
+                    startActivity(nextIntent);
                     finish();
                 });
 

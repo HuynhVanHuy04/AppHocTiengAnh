@@ -18,10 +18,25 @@ public class HealthActivity1 extends Activity {
     private LinearLayout selectedBox = null;
     private MediaPlayer mediaPlayer;
 
+    // Biến thống kê
+    private int xp = 0;
+    private int correct = 0;
+    private int total = 0;
+    private long startTime;
+
+    private boolean isCheckMode = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health1);
+
+        // Nhận dữ liệu từ Intent trước đó (nếu có)
+        Intent intent = getIntent();
+        xp = intent.getIntExtra("xp", 0);
+        correct = intent.getIntExtra("correct", 0);
+        total = intent.getIntExtra("total", 0);
+        startTime = intent.getLongExtra("startTime", System.currentTimeMillis());
 
         // Ánh xạ view
         boxHeadache = findViewById(R.id.boxHeadache);
@@ -45,11 +60,11 @@ public class HealthActivity1 extends Activity {
 
         // Lấy từ vựng ngẫu nhiên từ database
         DatabaseHealth1 dbHelper = new DatabaseHealth1(this);
-        String[] randomWord = dbHelper.getRandomWord(); // ví dụ: ["headache", "đau đầu"]
+        String[] randomWord = dbHelper.getRandomWord();
 
         if (randomWord == null || randomWord[0] == null) {
             Toast.makeText(this, "Không lấy được dữ liệu từ database", Toast.LENGTH_LONG).show();
-            finish(); // Quay lại activity trước
+            finish();
             return;
         }
 
@@ -58,7 +73,7 @@ public class HealthActivity1 extends Activity {
 
         // Sự kiện chọn hình
         View.OnClickListener boxClickListener = v -> {
-            if (checkButton.getText().equals("Tiếp tục")) return;
+            if (!isCheckMode) return;
             selectedBox = (LinearLayout) v;
             highlightSelected(selectedBox);
         };
@@ -70,30 +85,42 @@ public class HealthActivity1 extends Activity {
         boxRunnynose.setOnClickListener(boxClickListener);
         boxFever.setOnClickListener(boxClickListener);
 
-        // Nút kiểm tra
+        // Nút kiểm tra và tiếp tục
         checkButton.setOnClickListener(v -> {
-            if (selectedBox == null) {
-                Toast.makeText(this, "Vui lòng chọn một hình ảnh", Toast.LENGTH_SHORT).show();
-            } else if (selectedBox.getTag().toString().equals(correctEnglish)) {
-                Toast.makeText(this, "Chính xác! 🎉", Toast.LENGTH_SHORT).show();
-                checkButton.setText("Tiếp tục");
-                disableBoxes();
+            if (isCheckMode) {
+                if (selectedBox == null) {
+                    Toast.makeText(this, "Vui lòng chọn một hình ảnh", Toast.LENGTH_SHORT).show();
+                } else if (selectedBox.getTag().toString().equals(correctEnglish)) {
+                    Toast.makeText(this, "Chính xác! 🎉", Toast.LENGTH_SHORT).show();
+                    checkButton.setText("Tiếp tục");
+                    disableBoxes();
+                    isCheckMode = false;
 
-                checkButton.setOnClickListener(view -> {
-                    Intent intent = new Intent(HealthActivity1.this, HealthActivity2.class);
-                    startActivity(intent);
-                    finish();
-                });
+                    // Cập nhật thống kê
+                    xp += 15;
+                    correct += 1;
+                    total += 1;
 
+                } else {
+                    Toast.makeText(this, "Sai rồi 😢", Toast.LENGTH_SHORT).show();
+                }
             } else {
-                Toast.makeText(this, "Sai rồi 😢", Toast.LENGTH_SHORT).show();
+                // ➤ Chuyển sang màn tiếp theo và gửi thống kê
+                Intent nextIntent = new Intent(HealthActivity1.this, HealthActivity2.class);
+                nextIntent.putExtra("xp", xp);
+                nextIntent.putExtra("correct", correct);
+                nextIntent.putExtra("total", total);
+                nextIntent.putExtra("startTime", startTime);
+                startActivity(nextIntent);
+                finish();
             }
         });
 
         // Nút quay lại
         ImageView backArrow = findViewById(R.id.back_arrow);
         backArrow.setOnClickListener(v -> {
-            startActivity(new Intent(HealthActivity1.this, TopicActivityEnglish.class));
+            Intent backIntent = new Intent(HealthActivity1.this, TopicActivityEnglish.class);
+            startActivity(backIntent);
             finish();
         });
 

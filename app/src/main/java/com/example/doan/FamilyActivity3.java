@@ -19,10 +19,23 @@ public class FamilyActivity3 extends Activity {
     private LinearLayout correctBox = null;
     private MediaPlayer mediaPlayer;
 
+    // Thông tin thống kê
+    private int xp = 0;
+    private int correct = 0;
+    private int total = 0;
+    private long startTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_family3);
+
+        // Nhận dữ liệu từ FamilyActivity2
+        Intent intent = getIntent();
+        xp = intent.getIntExtra("xp", 0);
+        correct = intent.getIntExtra("correct", 0);
+        total = intent.getIntExtra("total", 0);
+        startTime = intent.getLongExtra("startTime", System.currentTimeMillis());
 
         boxLook = findViewById(R.id.boxLook);
         boxBringUp = findViewById(R.id.boxBringUp);
@@ -40,8 +53,8 @@ public class FamilyActivity3 extends Activity {
         correctEnglish = randomWord[0].trim().toLowerCase();
         wordText.setText(correctEnglish);
 
-        boxLook.setTag("look after");
-        boxBringUp.setTag("bring up");
+        boxLook.setTag("child");
+        boxBringUp.setTag("niece");
         boxSon.setTag("son");
         boxWife.setTag("wife");
         boxDaughter.setTag("daughter");
@@ -69,11 +82,22 @@ public class FamilyActivity3 extends Activity {
                 Toast.makeText(this, "Chính xác! 🎉", Toast.LENGTH_SHORT).show();
                 checkButton.setText("Tiếp tục");
                 disableBoxes();
+
+                // Sự kiện sau khi đúng -> chuyển tiếp và gửi dữ liệu
                 checkButton.setOnClickListener(view -> {
-                    Intent intent = new Intent(FamilyActivity3.this, FamilyActivity6.class);
-                    startActivity(intent);
+                    xp += 11;
+                    correct += 1;
+                    total += 1;
+
+                    Intent nextIntent = new Intent(FamilyActivity3.this, FamilyActivity6.class);
+                    nextIntent.putExtra("xp", xp);
+                    nextIntent.putExtra("correct", correct);
+                    nextIntent.putExtra("total", total);
+                    nextIntent.putExtra("startTime", startTime);
+                    startActivity(nextIntent);
                     finish();
                 });
+
             } else {
                 Toast.makeText(this, "Sai rồi 😢", Toast.LENGTH_SHORT).show();
             }
@@ -90,8 +114,8 @@ public class FamilyActivity3 extends Activity {
 
     private LinearLayout getBoxByWord(String word) {
         switch (word) {
-            case "look after": return boxLook;
-            case "bring up": return boxBringUp;
+            case "child": return boxLook;
+            case "niece": return boxBringUp;
             case "son": return boxSon;
             case "wife": return boxWife;
             case "daughter": return boxDaughter;

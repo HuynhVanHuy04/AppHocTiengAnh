@@ -18,10 +18,22 @@ public class EducationActivity4 extends AppCompatActivity {
     int correctCount = 0;
     int totalPairs;
 
+    // Dữ liệu từ màn trước
+    int xp = 0;
+    int correct = 0;
+    int total = 0;
+    long startTime = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_education4);
+
+        // Nhận dữ liệu từ EducationActivity3
+        xp = getIntent().getIntExtra("xp", 0);
+        correct = getIntent().getIntExtra("correct", 0);
+        total = getIntent().getIntExtra("total", 0);
+        startTime = getIntent().getLongExtra("startTime", System.currentTimeMillis());
 
         englishColumn = findViewById(R.id.englishColumn);
         vietnameseColumn = findViewById(R.id.vietnameseColumn);
@@ -37,15 +49,17 @@ public class EducationActivity4 extends AppCompatActivity {
 
         setupButtons();
 
-        // Mặc định disable nút
+        // Disable nút tiếp tục ban đầu
         continueButton.setEnabled(false);
 
-        // Xử lý khi ấn "Tiếp tục"
         continueButton.setOnClickListener(v -> {
-            // Chuyển sang Activity khác, ví dụ: ResultActivity
             Intent intent = new Intent(EducationActivity4.this, EducationActivity5.class);
+            intent.putExtra("xp", xp);
+            intent.putExtra("correct", correct);
+            intent.putExtra("total", total);
+            intent.putExtra("startTime", startTime);
             startActivity(intent);
-            finish(); // kết thúc màn hiện tại nếu không muốn quay lại
+            finish();
         });
 
         ImageView backArrow = findViewById(R.id.back_arrow);
@@ -53,7 +67,6 @@ public class EducationActivity4 extends AppCompatActivity {
             startActivity(new Intent(EducationActivity4.this, EducationActivity3.class));
             finish();
         });
-
     }
 
     private void setupButtons() {
@@ -98,13 +111,18 @@ public class EducationActivity4 extends AppCompatActivity {
 
                     correctCount++;
 
-                    // Khi đủ số từ đúng
+                    // ✅ Cập nhật dữ liệu thống kê
+                    xp += 10;
+                    correct++;
+                    total++;
+
                     if (correctCount == totalPairs) {
                         continueButton.setBackgroundTintList(getColorStateList(android.R.color.holo_green_dark));
                         continueButton.setEnabled(true);
                     }
                 } else {
                     Toast.makeText(this, "Sai rồi!", Toast.LENGTH_SHORT).show();
+                    total++; // ✅ Tăng tổng câu ngay cả khi sai
                 }
 
                 selectedEnglish = null;

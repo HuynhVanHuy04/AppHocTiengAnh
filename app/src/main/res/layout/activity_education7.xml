@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="24dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFEFC">
+
+    <!-- Câu hỏi -->
+    <TextView
+        android:id="@+id/tv_question"
+        android:text="Bạn nghe thấy gì?"
+        android:textSize="22sp"
+        android:textColor="#333"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="24dp"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <!-- Nút nghe âm thanh -->
+    <ImageButton
+        android:id="@+id/sound_icon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="#FFFFFF"
+        android:src="@drawable/volume"
+        android:scaleType="centerInside"
+        android:contentDescription="Play sound"
+        android:layout_marginBottom="36dp" />
+
+    <TextView
+        android:id="@+id/tv_answer_word"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="college"
+        android:textSize="20sp"
+        android:textColor="#4CAF50"
+        android:textStyle="bold"
+        android:visibility="gone"
+        android:layout_marginBottom="24dp" />
+
+
+    <!-- Hai lựa chọn -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp">
+
+        <Button
+            android:id="@+id/btn_option1"
+            android:text="college"
+            android:textSize="20sp"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/language_option_default"/>
+
+        <Button
+            android:id="@+id/btn_option2"
+            android:text="knowledge"
+            android:textSize="20sp"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:layout_marginStart="12dp"
+            android:background="@drawable/language_option_default"/>
+    </LinearLayout>
+
+    <!-- Nút kiểm tra -->
+    <Button
+        android:id="@+id/btn_check"
+        android:text="KIỂM TRA"
+        android:enabled="false"
+        android:textAllCaps="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#DDDDDD"
+        android:textColor="#000"
+        android:textSize="16sp"
+        android:padding="12dp"
+        android:layout_marginTop="20dp" />
+
+</LinearLayout>

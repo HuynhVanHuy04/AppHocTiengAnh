@@ -6,11 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,59 +19,83 @@ public class EducationActivity5 extends AppCompatActivity {
     TextView bubbleTextView;
     EditText answerInput;
     Button checkButton;
+    ImageView backArrow, imageView;
 
     SQLiteDatabase database;
 
     String correctAnswer = "";
     boolean isCheckMode = true;
 
+    // Biến lưu trạng thái học tập
+    int xp = 0;
+    int correct = 0;
+    int total = 0;
+    long startTime = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_education5);
 
+        // Nhận dữ liệu từ màn trước
+        xp = getIntent().getIntExtra("xp", 0);
+        correct = getIntent().getIntExtra("correct", 0);
+        total = getIntent().getIntExtra("total", 0);
+        startTime = getIntent().getLongExtra("startTime", System.currentTimeMillis());
+
         // Ánh xạ view
         bubbleTextView = findViewById(R.id.bubbleTextView);
         answerInput = findViewById(R.id.editTextAnswer);
         checkButton = findViewById(R.id.buttonCheck);
+        backArrow = findViewById(R.id.back_arrow);
+        imageView = findViewById(R.id.img);
 
         // Nút quay lại
-        ImageView backArrow = findViewById(R.id.back_arrow);
         backArrow.setOnClickListener(v -> {
             startActivity(new Intent(EducationActivity5.this, EducationActivity4.class));
             finish();
         });
 
-        // Load ảnh GIF động
-        ImageView imageView = findViewById(R.id.img);
+        // Load ảnh động
         Glide.with(this)
                 .asGif()
                 .load(R.drawable.edu)
                 .into(imageView);
 
-        // Nút kiểm tra / tiếp tục
+        // Nút kiểm tra
         checkButton.setOnClickListener(v -> {
             String userInput = answerInput.getText().toString().trim().toLowerCase();
 
             if (isCheckMode) {
                 if (userInput.equals(correctAnswer)) {
                     Toast.makeText(this, "🎉 Chính xác!", Toast.LENGTH_SHORT).show();
+
+                    // ✅ Cập nhật điểm và số câu đúng
+                    xp += 10;
+                    correct++;
+                    total++;
+
                     checkButton.setText("TIẾP TỤC");
                     checkButton.setBackgroundColor(Color.parseColor("#4CAF50"));
                     checkButton.setTextColor(Color.WHITE);
                     isCheckMode = false;
                 } else {
                     Toast.makeText(this, "❌ Sai rồi! Thử lại...", Toast.LENGTH_SHORT).show();
+                    total++; // ✅ Tăng tổng số câu đã làm
                 }
             } else {
-                // ➤ Chuyển sang Activity khác sau khi đúng và bấm "TIẾP TỤC"
+                // ➤ Chuyển sang Activity tiếp theo và truyền dữ liệu
                 Intent intent = new Intent(EducationActivity5.this, EducationActivity6.class);
+                intent.putExtra("xp", xp);
+                intent.putExtra("correct", correct);
+                intent.putExtra("total", total);
+                intent.putExtra("startTime", startTime);
                 startActivity(intent);
                 finish();
             }
         });
 
-        // Tải dữ liệu đầu tiên
+        // Tải dữ liệu từ SQLite
         loadRandomTranslation();
     }
 
@@ -100,7 +120,7 @@ public class EducationActivity5 extends AppCompatActivity {
                 String english = cursor.getString(0);  // VD: "staff room"
                 String vietnamese = cursor.getString(1); // VD: "Phòng nghỉ giáo viên"
 
-                correctAnswer = english.trim().toLowerCase(); // So sánh không phân biệt hoa thường
+                correctAnswer = english.trim().toLowerCase();
                 bubbleTextView.setText(vietnamese.trim() + "?");
                 answerInput.setHint("Nhập bản dịch tiếng Anh");
             }

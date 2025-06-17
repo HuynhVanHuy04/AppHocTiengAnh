@@ -19,12 +19,27 @@ public class HealthActivity3 extends Activity {
     private LinearLayout correctBox = null;
     private MediaPlayer mediaPlayer;
 
+    // Thống kê
+    private int xp = 0;
+    private int correct = 0;
+    private int total = 0;
+    private long startTime;
+
+    private boolean answeredCorrectly = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_health3); // hoặc activity_health3.xml nếu bạn đặt tên khác
+        setContentView(R.layout.activity_health3);
 
-        // Ánh xạ
+        // Nhận dữ liệu từ HealthActivity2
+        Intent intent = getIntent();
+        xp = intent.getIntExtra("xp", 0);
+        correct = intent.getIntExtra("correct", 0);
+        total = intent.getIntExtra("total", 0);
+        startTime = intent.getLongExtra("startTime", System.currentTimeMillis());
+
+        // Ánh xạ view
         boxShortness = findViewById(R.id.boxShortness);
         boxChestpain = findViewById(R.id.boxChestpain);
         boxDifficult = findViewById(R.id.boxDifficult);
@@ -36,13 +51,12 @@ public class HealthActivity3 extends Activity {
         checkButton = findViewById(R.id.checkButton);
         speakerButton = findViewById(R.id.speakerButton);
 
-        // DB Helper
         DatabaseHealth3 dbHelper = new DatabaseHealth3(this);
         String[] randomWord = dbHelper.getRandomWord();
-        correctEnglish = randomWord[0].trim().toLowerCase(); // ví dụ: "shortness of breath"
+        correctEnglish = randomWord[0].trim().toLowerCase();
         wordText.setText(correctEnglish);
 
-        // Gán tag cho từng box
+        // Tag cho các box
         boxShortness.setTag("shortness of breath");
         boxChestpain.setTag("chest pain");
         boxDifficult.setTag("difficult to swallow");
@@ -52,7 +66,6 @@ public class HealthActivity3 extends Activity {
 
         correctBox = getBoxByWord(correctEnglish);
 
-        // Bắt sự kiện chọn
         View.OnClickListener boxClickListener = v -> {
             if (checkButton.getText().equals("Tiếp tục")) return;
             selectedBox = (LinearLayout) v;
@@ -66,28 +79,43 @@ public class HealthActivity3 extends Activity {
         boxDehydration.setOnClickListener(boxClickListener);
         boxAllergies.setOnClickListener(boxClickListener);
 
-        // Nút kiểm tra
         checkButton.setOnClickListener(v -> {
             if (selectedBox == null) {
                 Toast.makeText(this, "Vui lòng chọn một hình ảnh", Toast.LENGTH_SHORT).show();
-            } else if (selectedBox.equals(correctBox)) {
+            } else if (!answeredCorrectly && selectedBox.equals(correctBox)) {
                 Toast.makeText(this, "Chính xác! 🎉", Toast.LENGTH_SHORT).show();
+                answeredCorrectly = true;
                 checkButton.setText("Tiếp tục");
                 disableBoxes();
-                checkButton.setOnClickListener(view -> {
-                    Intent intent = new Intent(HealthActivity3.this, HealthActivity4.class);
-                    startActivity(intent);
-                    finish();
-                });
-            } else {
+
+                // Cập nhật thống kê
+                xp += 15;
+                correct++;
+                total++;
+
+            } else if (!answeredCorrectly) {
                 Toast.makeText(this, "Sai rồi 😢", Toast.LENGTH_SHORT).show();
+            } else {
+                // Sang HealthActivity4 và gửi dữ liệu
+                Intent nextIntent = new Intent(HealthActivity3.this, HealthActivity4.class);
+                nextIntent.putExtra("xp", xp);
+                nextIntent.putExtra("correct", correct);
+                nextIntent.putExtra("total", total);
+                nextIntent.putExtra("startTime", startTime);
+                startActivity(nextIntent);
+                finish();
             }
         });
 
         // Quay lại
         ImageView backArrow = findViewById(R.id.back_arrow);
         backArrow.setOnClickListener(v -> {
-            startActivity(new Intent(HealthActivity3.this, HealthActivity2.class));
+            Intent backIntent = new Intent(HealthActivity3.this, HealthActivity2.class);
+            backIntent.putExtra("xp", xp);
+            backIntent.putExtra("correct", correct);
+            backIntent.putExtra("total", total);
+            backIntent.putExtra("startTime", startTime);
+            startActivity(backIntent);
             finish();
         });
 

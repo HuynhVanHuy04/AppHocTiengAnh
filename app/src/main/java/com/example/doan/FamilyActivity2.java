@@ -27,6 +27,12 @@ public class FamilyActivity2 extends Activity {
 
     private final List<Button> wordButtons = new ArrayList<>();
 
+    // Dữ liệu nhận từ màn trước
+    private int xp = 0;
+    private int correct = 0;
+    private int total = 0;
+    private long startTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,9 +43,16 @@ public class FamilyActivity2 extends Activity {
         ImageView soundIcon = findViewById(R.id.sound_icon);
         englishText = findViewById(R.id.english_text);
 
-        mediaPlayer = MediaPlayer.create(this, R.raw.student);
+        mediaPlayer = MediaPlayer.create(this, R.raw.parent);
 
-        // Màu và trạng thái ban đầu của nút kiểm tra
+        // Nhận dữ liệu từ FamilyActivity1
+        Intent intent = getIntent();
+        xp = intent.getIntExtra("xp", 0);
+        correct = intent.getIntExtra("correct", 0);
+        total = intent.getIntExtra("total", 0);
+        startTime = intent.getLongExtra("startTime", System.currentTimeMillis());
+
+        // Trạng thái ban đầu
         checkButton.setEnabled(false);
         checkButton.setBackgroundColor(Color.parseColor("#BDBDBD")); // xám
 
@@ -54,7 +67,7 @@ public class FamilyActivity2 extends Activity {
             wordButton.setOnClickListener(view -> {
                 userAnswer.append(word).append(" ");
                 checkButton.setEnabled(true);
-                checkButton.setBackgroundColor(Color.parseColor("#4CAF50")); // xanh lá khi chọn
+                checkButton.setBackgroundColor(Color.parseColor("#4CAF50")); // xanh lá
                 wordButton.setEnabled(false);
             });
 
@@ -75,27 +88,30 @@ public class FamilyActivity2 extends Activity {
                 } else {
                     Toast.makeText(this, "Sai rồi 😢", Toast.LENGTH_SHORT).show();
 
-                    // Reset các từ và trạng thái
+                    // Reset trạng thái
                     userAnswer.setLength(0);
-                    for (Button b : wordButtons) {
-                        b.setEnabled(true);
-                    }
-
+                    for (Button b : wordButtons) b.setEnabled(true);
                     checkButton.setEnabled(false);
-                    checkButton.setBackgroundColor(Color.parseColor("#BDBDBD")); // trở lại màu xám
+                    checkButton.setBackgroundColor(Color.parseColor("#BDBDBD")); // xám
                 }
             } else {
-                Intent intent = new Intent(FamilyActivity2.this, FamilyActivity3.class);
-                startActivity(intent);
+                // Trả lời đúng, cập nhật dữ liệu
+                xp += 11;
+                correct += 1;
+                total += 1;
+
+                Intent nextIntent = new Intent(FamilyActivity2.this, FamilyActivity3.class);
+                nextIntent.putExtra("xp", xp);
+                nextIntent.putExtra("correct", correct);
+                nextIntent.putExtra("total", total);
+                nextIntent.putExtra("startTime", startTime);
+                startActivity(nextIntent);
                 finish();
             }
         });
 
         ImageView imageView = findViewById(R.id.character_image);
-        Glide.with(this)
-                .asGif()
-                .load(R.drawable.edu) // tên file gif không cần đuôi .gif
-                .into(imageView);
+        Glide.with(this).asGif().load(R.drawable.edu).into(imageView); // ảnh gif nhân vật
 
         // Nút quay lại
         ImageView backArrow = findViewById(R.id.back_arrow);
@@ -103,8 +119,6 @@ public class FamilyActivity2 extends Activity {
             startActivity(new Intent(FamilyActivity2.this, FamilyActivity1.class));
             finish();
         });
-
-
     }
 
     @Override
